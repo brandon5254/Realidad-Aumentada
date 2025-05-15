@@ -83,7 +83,7 @@ const ProductsPage: React.FC = () => {
     <div className="pt-20 px-4 md:px-8 max-w-7xl mx-auto">
       <div className="py-8">
         <h1 className="text-3xl font-light mb-4">Productos</h1>
-        <p className="text-gray-600">Descubre nuestra colección de prendas y accesorios.</p>
+        <p className="text-gray-600">Descubre nuestra colección de prendas.</p>
       </div>
       
       {/* Mobile Filter Toggle */}
@@ -155,15 +155,9 @@ const ProductsPage: React.FC = () => {
                   Mujer
                 </label>
                 <label className="flex items-center">
-                  <input 
-                    type="radio" 
-                    name="category" 
-                    value="accesorios" 
-                    checked={filters.category === 'accesorios'} 
-                    onChange={() => handleFilterChange('category', 'accesorios')}
-                    className="mr-2"
-                  />
-                  Accesorios
+                  
+                  
+                  
                 </label>
               </div>
             </div>

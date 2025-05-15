@@ -10,9 +10,7 @@ const AboutPage: React.FC = () => {
           <div>
             <h2 className="text-2xl font-light mb-4">Nuestra Historia</h2>
             <p className="text-gray-600 mb-4">
-              ELEGANCE nació de la pasión por la moda y la innovación tecnológica. Desde nuestros inicios, 
-              nos hemos dedicado a ofrecer prendas de alta calidad mientras revolucionamos la experiencia 
-              de compra online con nuestra tecnología AR.
+              La historia de OMGEL nace del sueño compartido de dos jóvenes universitarios apasionados por la moda: Omar y Miguel Ángel. Desde años anteriores, ambos sintieron una profunda conexión con las tendencias de ropa como el Y2K y el Streetwear, tendencias que van muy ligadas con el hip hop norteamericano, viendo en la moda una forma auténtica de expresión personal. Así, uniendo partes de sus nombres: OM de Omar y GEL de Ángel, dieron vida a una marca que representa creatividad y autenticidad.
             </p>
             <p className="text-gray-600">
               Nuestra misión es hacer que la moda sea más accesible y sostenible, permitiendo a nuestros 

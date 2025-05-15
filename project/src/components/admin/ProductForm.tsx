@@ -140,8 +140,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onClose, onSubmit, initialDat
               >
                 <option value="Hombre">Hombre</option>
                 <option value="Mujer">Mujer</option>
-                <option value="Unisex">Unisex</option>
-                <option value="Accesorios">Accesorios</option>
+                
               </select>
             </div>
 

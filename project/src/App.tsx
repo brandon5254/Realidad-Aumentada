@@ -11,6 +11,10 @@ import ProfilePage from './pages/ProfilePage';
 import ArTryOnPage from './pages/ArTryOnPage';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import FAQPage from './pages/FAQPage';
+import ShippingPage from './pages/ShippingPage';
+import TermsPage from './pages/TermsPage';
 import SearchPage from './pages/SearchPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
@@ -35,6 +39,10 @@ function App() {
           <Route path="/ar/:productId" element={<ArTryOnPage />} />
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/sobre-nosotros" element={<AboutPage />} />
+          <Route path="/contacto" element={<ContactPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/envios" element={<ShippingPage />} />
+          <Route path="/terminos" element={<TermsPage />} />
           <Route path="/buscar" element={<SearchPage />} />
           <Route 
             path="/perfil" 

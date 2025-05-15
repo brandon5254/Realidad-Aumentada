@@ -31,18 +31,13 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-light mb-4">Tienda</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/productos?categoria=hombre" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/productos?categoria=Hombre" className="text-gray-400 hover:text-white transition-colors">
                   Hombre
                 </Link>
               </li>
               <li>
-                <Link to="/productos?categoria=mujer" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/productos?categoria=Mujer" className="text-gray-400 hover:text-white transition-colors">
                   Mujer
-                </Link>
-              </li>
-              <li>
-                <Link to="/productos?categoria=accesorios" className="text-gray-400 hover:text-white transition-colors">
-                  Accesorios
                 </Link>
               </li>
               <li>
@@ -90,7 +85,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="text-gray-400 mr-2 flex-shrink-0" />
-                <span className="text-gray-400">+123 456 7890</span>
+                <span className="text-gray-400">+57 3243833378</span>
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="text-gray-400 mr-2 flex-shrink-0" />

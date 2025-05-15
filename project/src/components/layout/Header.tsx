@@ -67,7 +67,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-xl font-light tracking-wider">
-            ELEGANCE
+            OMGEL STORE
           </Link>
           
           <nav className="hidden md:flex space-x-8">

@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
         
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4 md:px-8">
           <h1 className="text-4xl md:text-6xl font-light mb-4 tracking-wide text-center">
-            ELEGANCE
+            OMGEL STORE
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl text-center font-light">
             Descubre nuestra colección y pruébala virtualmente con nuestra experiencia AR
