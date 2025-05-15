@@ -7,21 +7,18 @@ import { useCart } from '../../context/CartContext';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { currentUser } = useAuth();
+  const { currentUser, isAdmin } = useAuth();
   const { totalItems } = useCart();
   const location = useLocation();
   
-  // Toggle menu for mobile
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Close mobile menu when location changes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Change header background on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -47,12 +44,10 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          {/* Logo */}
           <Link to="/" className="text-xl font-light tracking-wider">
-            OMGEL STORE
+            ELEGANCE
           </Link>
           
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
             <Link to="/" className="hover:text-gray-400 transition-colors">
               Inicio
@@ -60,18 +55,14 @@ const Header: React.FC = () => {
             <Link to="/productos" className="hover:text-gray-400 transition-colors">
               Productos
             </Link>
-            <Link to="/productos?categoria=hombre" className="hover:text-gray-400 transition-colors">
-              Hombre
-            </Link>
-            <Link to="/productos?categoria=mujer" className="hover:text-gray-400 transition-colors">
-              Mujer
+            <Link to="/sobre-nosotros" className="hover:text-gray-400 transition-colors">
+              Sobre nosotros
             </Link>
             <Link to="/ar/featured" className="hover:text-gray-400 transition-colors">
               AR Experience
             </Link>
           </nav>
           
-          {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/buscar" className="hover:text-gray-400 transition-colors">
               <Search size={20} />
@@ -79,6 +70,11 @@ const Header: React.FC = () => {
             <Link to={currentUser ? "/perfil" : "/login"} className="hover:text-gray-400 transition-colors">
               <User size={20} />
             </Link>
+            {isAdmin && (
+              <Link to="/admin" className="hover:text-gray-400 transition-colors">
+                Admin
+              </Link>
+            )}
             <Link to="/carrito" className="hover:text-gray-400 transition-colors relative">
               <ShoppingBag size={20} />
               {totalItems > 0 && (
@@ -89,7 +85,6 @@ const Header: React.FC = () => {
             </Link>
           </div>
           
-          {/* Mobile Menu Button */}
           <button 
             className="md:hidden focus:outline-none" 
             onClick={toggleMenu}
@@ -100,7 +95,6 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white text-gray-900 absolute top-full left-0 w-full">
           <div className="container mx-auto px-4 py-4">
@@ -111,15 +105,17 @@ const Header: React.FC = () => {
               <Link to="/productos" className="py-2 hover:text-gray-400 transition-colors">
                 Productos
               </Link>
-              <Link to="/productos?categoria=hombre" className="py-2 hover:text-gray-400 transition-colors">
-                Hombre
-              </Link>
-              <Link to="/productos?categoria=mujer" className="py-2 hover:text-gray-400 transition-colors">
-                Mujer
+              <Link to="/sobre-nosotros" className="py-2 hover:text-gray-400 transition-colors">
+                Sobre nosotros
               </Link>
               <Link to="/ar/featured" className="py-2 hover:text-gray-400 transition-colors">
                 AR Experience
               </Link>
+              {isAdmin && (
+                <Link to="/admin" className="py-2 hover:text-gray-400 transition-colors">
+                  Admin
+                </Link>
+              )}
               <div className="flex space-x-6 py-2">
                 <Link to="/buscar" className="hover:text-gray-400 transition-colors">
                   <Search size={20} />

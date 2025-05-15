@@ -10,8 +10,15 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ArTryOnPage from './pages/ArTryOnPage';
 import CartPage from './pages/CartPage';
+import AboutPage from './pages/AboutPage';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminProducts from './pages/admin/AdminProducts';
+import AdminOrders from './pages/admin/AdminOrders';
+import AdminReports from './pages/admin/AdminReports';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import AdminRoute from './components/auth/AdminRoute';
+import CheckoutRoute from './components/auth/CheckoutRoute';
 
 function App() {
   return (
@@ -26,6 +33,7 @@ function App() {
           <Route path="/registro" element={<RegisterPage />} />
           <Route path="/ar/:productId" element={<ArTryOnPage />} />
           <Route path="/carrito" element={<CartPage />} />
+          <Route path="/sobre-nosotros" element={<AboutPage />} />
           <Route 
             path="/perfil" 
             element={
@@ -34,6 +42,18 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          >
+            <Route index element={<AdminProducts />} />
+            <Route path="pedidos" element={<AdminOrders />} />
+            <Route path="reportes" element={<AdminReports />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

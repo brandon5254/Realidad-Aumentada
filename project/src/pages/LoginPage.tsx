@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage: React.FC = () => {
@@ -7,8 +7,10 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,10 +24,24 @@ const LoginPage: React.FC = () => {
       setError('');
       setLoading(true);
       await login(email, password);
-      navigate('/');
+      navigate(from);
     } catch (error) {
       console.error('Login error:', error);
       setError('Error al iniciar sesión. Verifica tus credenciales.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setError('');
+      setLoading(true);
+      await loginWithGoogle();
+      navigate(from);
+    } catch (error) {
+      console.error('Google login error:', error);
+      setError('Error al iniciar sesión con Google.');
     } finally {
       setLoading(false);
     }
@@ -100,13 +116,27 @@ const LoginPage: React.FC = () => {
             </div>
           </div>
           
-          <div>
+          <div className="space-y-4">
             <button
               type="submit"
               disabled={loading}
               className="w-full flex justify-center py-3 px-4 border border-transparent bg-black text-white hover:bg-gray-800 focus:outline-none disabled:opacity-50 disabled:pointer-events-none transition-colors"
             >
               {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              disabled={loading}
+              className="w-full flex justify-center py-3 px-4 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none disabled:opacity-50 disabled:pointer-events-none transition-colors"
+            >
+              <img 
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
+                alt="Google" 
+                className="w-5 h-5 mr-2"
+              />
+              Continuar con Google
             </button>
           </div>
         </form>
