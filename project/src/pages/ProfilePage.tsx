@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, collection, query, where, orderBy, onSnapshot, updateDoc } from 'firebase/firestore';
+import { updateProfile, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { db } from '../firebase/config';
-import { LogOut, User, ShoppingBag, Heart, Trash2 } from 'lucide-react';
+import { LogOut, User, ShoppingBag, Heart, Trash2, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Link } from 'react-router-dom';
@@ -56,6 +57,17 @@ const ProfilePage: React.FC = () => {
   const [savingAddress, setSavingAddress] = useState(false);
   const [wishlistProducts, setWishlistProducts] = useState<Product[]>([]);
   const [loadingWishlist, setLoadingWishlist] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [savingPassword, setSavingPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [displayName, setDisplayName] = useState('');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -130,14 +142,14 @@ const ProfilePage: React.FC = () => {
       setLoadingWishlist(true);
       try {
         const products = await Promise.all(
-          profile?.wishlist?.map(async (productId) => {
+          (profile.wishlist ?? []).map(async (productId) => {
             const docRef = doc(db, 'products', productId);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
               return { id: docSnap.id, ...docSnap.data() } as Product;
             }
             return null;
-          }) ?? []
+          })
         );
         setWishlistProducts(products.filter((p): p is Product => p !== null));
       } catch (error) {
@@ -149,6 +161,12 @@ const ProfilePage: React.FC = () => {
 
     fetchWishlistProducts();
   }, [currentUser, profile?.wishlist, isAdmin]);
+
+  useEffect(() => {
+    if (profile) {
+      setDisplayName(profile.displayName);
+    }
+  }, [profile]);
 
   const handleLogout = async () => {
     try {
@@ -180,6 +198,83 @@ const ProfilePage: React.FC = () => {
       alert('Error al guardar la dirección. Por favor intenta de nuevo.');
     } finally {
       setSavingAddress(false);
+    }
+  };
+
+  const handleProfileSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!currentUser) return;
+
+    try {
+      setSavingProfile(true);
+      setError('');
+      setSuccess('');
+
+      // Update Firebase Auth display name
+      await updateProfile(currentUser, { displayName });
+
+      // Update Firestore profile
+      const userRef = doc(db, 'users', currentUser.uid);
+      await updateDoc(userRef, {
+        displayName,
+        updatedAt: new Date().toISOString()
+      });
+
+      setSuccess('Perfil actualizado correctamente');
+      setProfile(prev => prev ? { ...prev, displayName } : null);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      setError('Error al actualizar el perfil');
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!currentUser) return;
+
+    try {
+      setSavingPassword(true);
+      setError('');
+      setSuccess('');
+
+      if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+        throw new Error('Las contraseñas no coinciden');
+      }
+
+      if (passwordForm.newPassword.length < 6) {
+        throw new Error('La contraseña debe tener al menos 6 caracteres');
+      }
+
+      // Reauthenticate user
+      const credential = EmailAuthProvider.credential(
+        currentUser.email!,
+        passwordForm.currentPassword
+      );
+      await reauthenticateWithCredential(currentUser, credential);
+
+      // Update password
+      await updatePassword(currentUser, passwordForm.newPassword);
+
+      setSuccess('Contraseña actualizada correctamente');
+      setIsChangingPassword(false);
+      setPasswordForm({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      });
+    } catch (error: any) {
+      console.error('Error updating password:', error);
+      if (error.code === 'auth/wrong-password') {
+        setError('La contraseña actual es incorrecta');
+      } else if (error.message) {
+        setError(error.message);
+      } else {
+        setError('Error al actualizar la contraseña');
+      }
+    } finally {
+      setSavingPassword(false);
     }
   };
 
@@ -281,17 +376,32 @@ const ProfilePage: React.FC = () => {
           {activeTab === 'profile' && (
             <div>
               <h1 className="text-2xl font-light mb-6">Mi cuenta</h1>
+              
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md">
+                  {error}
+                </div>
+              )}
+              
+              {success && (
+                <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-md">
+                  {success}
+                </div>
+              )}
+              
               <div className="bg-white border border-gray-200 p-6">
                 <h2 className="text-lg font-medium mb-4">Información personal</h2>
-                <div className="space-y-4">
+                <form onSubmit={handleProfileSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Nombre completo
                     </label>
                     <input
                       type="text"
-                      defaultValue={profile?.displayName}
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
+                      required
                     />
                   </div>
                   <div>
@@ -300,7 +410,7 @@ const ProfilePage: React.FC = () => {
                     </label>
                     <input
                       type="email"
-                      defaultValue={profile?.email}
+                      value={profile?.email}
                       disabled
                       className="w-full px-3 py-2 border border-gray-300 bg-gray-50"
                     />
@@ -312,18 +422,129 @@ const ProfilePage: React.FC = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Contraseña
                     </label>
-                    <button className="text-black hover:text-gray-700 text-sm">
+                    <button
+                      type="button"
+                      onClick={() => setIsChangingPassword(true)}
+                      className="text-black hover:text-gray-700 text-sm"
+                    >
                       Cambiar contraseña
                     </button>
                   </div>
                   <div className="pt-4">
-                    <button className="px-4 py-2 bg-black text-white hover:bg-gray-800 transition-colors">
-                      Guardar cambios
+                    <button
+                      type="submit"
+                      disabled={savingProfile}
+                      className="px-4 py-2 bg-black text-white hover:bg-gray-800 transition-colors disabled:opacity-50"
+                    >
+                      {savingProfile ? 'Guardando...' : 'Guardar cambios'}
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
-              
+
+              {isChangingPassword && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                  <div className="bg-white rounded-lg p-6 max-w-md w-full">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-lg font-medium">Cambiar contraseña</h3>
+                      <button
+                        onClick={() => {
+                          setIsChangingPassword(false);
+                          setPasswordForm({
+                            currentPassword: '',
+                            newPassword: '',
+                            confirmPassword: ''
+                          });
+                          setError('');
+                        }}
+                        className="text-gray-400 hover:text-gray-500"
+                      >
+                        <X size={24} />
+                      </button>
+                    </div>
+                    
+                    {error && (
+                      <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
+                        {error}
+                      </div>
+                    )}
+                    
+                    <form onSubmit={handlePasswordSubmit} className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Contraseña actual
+                        </label>
+                        <input
+                          type="password"
+                          value={passwordForm.currentPassword}
+                          onChange={(e) => setPasswordForm(prev => ({
+                            ...prev,
+                            currentPassword: e.target.value
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Nueva contraseña
+                        </label>
+                        <input
+                          type="password"
+                          value={passwordForm.newPassword}
+                          onChange={(e) => setPasswordForm(prev => ({
+                            ...prev,
+                            newPassword: e.target.value
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
+                          required
+                          minLength={6}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Confirmar nueva contraseña
+                        </label>
+                        <input
+                          type="password"
+                          value={passwordForm.confirmPassword}
+                          onChange={(e) => setPasswordForm(prev => ({
+                            ...prev,
+                            confirmPassword: e.target.value
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-black focus:border-black"
+                          required
+                        />
+                      </div>
+                      <div className="flex justify-end space-x-4 pt-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsChangingPassword(false);
+                            setPasswordForm({
+                              currentPassword: '',
+                              newPassword: '',
+                              confirmPassword: ''
+                            });
+                            setError('');
+                          }}
+                          className="px-4 py-2 border border-gray-300 hover:bg-gray-50 transition-colors"
+                        >
+                          Cancelar
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={savingPassword}
+                          className="px-4 py-2 bg-black text-white hover:bg-gray-800 transition-colors disabled:opacity-50"
+                        >
+                          {savingPassword ? 'Guardando...' : 'Cambiar contraseña'}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
+
               {!isAdmin && (
                 <div className="bg-white border border-gray-200 p-6 mt-6">
                   <div className="flex justify-between items-center mb-4">
@@ -557,4 +778,3 @@ const ProfilePage: React.FC = () => {
 };
 
 export default ProfilePage;
-

@@ -23,3 +23,13 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+#Claves y credenciales sensibles
+*.json
+!firebase.json  # Si usas Firebase, este archivo sí puede ir al repo
+tiendavirtual-b815e-firebase-adminsdk-fbsvc-*.json
+serviceAccountKey.json
+credentials/
+
+# Ignorar carpeta de credenciales con claves privadas
+/credentials/

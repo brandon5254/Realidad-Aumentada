@@ -27,7 +27,7 @@ const CartPage: React.FC = () => {
           .join('\n')
       }\n\nTotal: $${totalPrice.toFixed(2)}`
     );
-    window.open(`https://wa.me/1234567890?text=${message}`, '_blank');
+    window.open(`https://wa.me/573243833378?text=${message}`, '_blank');
   };
 
   const createOrder = async (data: any, actions: any) => {

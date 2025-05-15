@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@angular/fire": "^19.1.0",
     "@paypal/react-paypal-js": "^8.1.4",
     "@snap/camera-kit": "^1.5.0",
     "date-fns": "^3.3.1",
-    "firebase": "^10.8.0",
+    "firebase": "^10.14.1",
     "firebase-admin": "^13.4.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@types/mime-types": "^2.1.4",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

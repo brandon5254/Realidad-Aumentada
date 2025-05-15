@@ -2,7 +2,7 @@ import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
 import { ServiceAccount } from 'firebase-admin';
-import serviceAccountData from './types/tiendavirtual-b815e-firebase-adminsdk-fbsvc-8a253c7f00.json';
+import serviceAccountData from '../credentials/tiendavirtual-b815e-7e376deaed25.json';
 import fs from 'fs';
 import path from 'path';
 import mime from 'mime-types';
@@ -77,7 +77,7 @@ const products = [
     description: "Hoddie Celeste para el Frio",
     price: 49.99,
     images: ["hoddie.jpg"],
-    category: "Unisex",
+    category: "Mujer",
     availableSizes: ["M", "L"],
     featured: false
   },
@@ -86,7 +86,7 @@ const products = [
     description: "Chaqueta de cuero para toda ocasion",
     price: 49.99,
     images: ["chaqueta.jpg"],
-    category: "Hombre",
+    category: "Mujer",
     availableSizes: ["M", "L"],
     featured: false
   },
