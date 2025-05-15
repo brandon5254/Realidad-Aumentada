@@ -4,7 +4,7 @@ import { collection, getDocs, query, where, limit } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { Product } from '../types/product';
 import FeaturedProductCard from '../components/products/FeaturedProductCard';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
         
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4 md:px-8">
           <h1 className="text-4xl md:text-6xl font-light mb-4 tracking-wide text-center">
-            OMGEL STORE
+            ELEGANCE
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl text-center font-light">
             Descubre nuestra colección y pruébala virtualmente con nuestra experiencia AR
@@ -121,51 +121,85 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-light mb-10 text-center">Categorías</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Link 
-            to="/productos?categoria=hombre" 
-            className="relative h-96 group overflow-hidden"
-          >
-            <img 
-              src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg" 
-              alt="Moda hombre" 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-              <span className="text-white text-2xl font-light tracking-wider">HOMBRE</span>
-            </div>
-          </Link>
+      {/* Testimonials Section */}
+      <section className="py-16 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-light mb-4 text-center">Lo que nuestros clientes dicen</h2>
+          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+            Descubre por qué nuestros clientes confían en nosotros para sus compras de moda
+          </p>
           
-          <Link 
-            to="/productos?categoria=mujer" 
-            className="relative h-96 group overflow-hidden"
-          >
-            <img 
-              src="https://images.pexels.com/photos/972995/pexels-photo-972995.jpeg" 
-              alt="Moda mujer" 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-              <span className="text-white text-2xl font-light tracking-wider">MUJER</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Testimonial 1 */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="h-48 mb-6 overflow-hidden rounded-lg">
+                <img 
+                  src="https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg" 
+                  alt="Cliente satisfecha" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={18} className="fill-current text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-gray-600 mb-4">
+                "La experiencia AR es increíble. Pude probarme la ropa virtualmente antes de comprar y todo me quedó perfecto."
+              </p>
+              <p className="font-medium">María García</p>
             </div>
-          </Link>
-          
-          <Link 
-            to="/productos?categoria=accesorios" 
-            className="relative h-96 group overflow-hidden"
-          >
-            <img 
-              src="https://images.pexels.com/photos/1374910/pexels-photo-1374910.jpeg" 
-              alt="Accesorios" 
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-              <span className="text-white text-2xl font-light tracking-wider">ACCESORIOS</span>
+
+            {/* Testimonial 2 */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="h-48 mb-6 overflow-hidden rounded-lg">
+                <img 
+                  src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg" 
+                  alt="Cliente satisfecho" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={18} className="fill-current text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-gray-600 mb-4">
+                "La calidad de la ropa es excelente y el servicio al cliente es excepcional. Totalmente recomendado."
+              </p>
+              <p className="font-medium">Carlos Rodríguez</p>
             </div>
-          </Link>
+
+            {/* Testimonial 3 */}
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="h-48 mb-6 overflow-hidden rounded-lg">
+                <img 
+                  src="https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg" 
+                  alt="Cliente satisfecha" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={18} className="fill-current text-yellow-400" />
+                ))}
+              </div>
+              <p className="text-gray-600 mb-4">
+                "Las prendas son exactamente como se ven en las fotos. El envío fue rápido y el empaque muy cuidado."
+              </p>
+              <p className="font-medium">Ana Martínez</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link 
+              to="/sobre-nosotros#testimonios" 
+              className="inline-flex items-center text-black hover:text-gray-700"
+            >
+              <span className="mr-2">Conoce Sobre Nosotros</span>
+              <ArrowRight size={18} />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

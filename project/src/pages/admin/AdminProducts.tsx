@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc, updateDoc, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { Product } from '../../types/product';
 import { Edit2, Trash2, Plus } from 'lucide-react';
+import ProductForm from '../../components/admin/ProductForm';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     fetchProducts();
@@ -37,6 +40,7 @@ const AdminProducts = () => {
       setProducts(products.filter(product => product.id !== productId));
     } catch (error) {
       console.error('Error deleting product:', error);
+      alert('Error al eliminar el producto');
     }
   };
 
@@ -52,6 +56,34 @@ const AdminProducts = () => {
       ));
     } catch (error) {
       console.error('Error updating product:', error);
+      alert('Error al actualizar el producto');
+    }
+  };
+
+  const handleEdit = (product: Product) => {
+    setEditingProduct(product);
+    setIsFormOpen(true);
+  };
+
+  const handleSubmit = async (productData: Omit<Product, 'id'>) => {
+    try {
+      if (editingProduct) {
+        // Update existing product
+        const productRef = doc(db, 'products', editingProduct.id);
+        await updateDoc(productRef, productData);
+        setProducts(products.map(p => 
+          p.id === editingProduct.id ? { ...productData, id: editingProduct.id } : p
+        ));
+      } else {
+        // Create new product
+        const docRef = await addDoc(collection(db, 'products'), productData);
+        setProducts([...products, { ...productData, id: docRef.id }]);
+      }
+      setIsFormOpen(false);
+      setEditingProduct(null);
+    } catch (error) {
+      console.error('Error saving product:', error);
+      throw error;
     }
   };
 
@@ -64,10 +96,16 @@ const AdminProducts = () => {
   }
 
   return (
-    <div className="p-6">
+    <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Gestión de Productos</h1>
-        <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center">
+        <h2 className="text-2xl font-light">Gestión de Productos</h2>
+        <button 
+          onClick={() => {
+            setEditingProduct(null);
+            setIsFormOpen(true);
+          }}
+          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center"
+        >
           <Plus size={20} className="mr-2" />
           Nuevo Producto
         </button>
@@ -151,7 +189,7 @@ const AdminProducts = () => {
                     <div className="flex space-x-2">
                       <button 
                         className="text-blue-600 hover:text-blue-900"
-                        onClick={() => {/* Handle edit */}}
+                        onClick={() => handleEdit(product)}
                       >
                         <Edit2 size={18} />
                       </button>
@@ -169,6 +207,17 @@ const AdminProducts = () => {
           </table>
         </div>
       </div>
+
+      {isFormOpen && (
+        <ProductForm
+          onClose={() => {
+            setIsFormOpen(false);
+            setEditingProduct(null);
+          }}
+          onSubmit={handleSubmit}
+          initialData={editingProduct || undefined}
+        />
+      )}
     </div>
   );
 };

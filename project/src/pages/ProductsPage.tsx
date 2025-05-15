@@ -137,8 +137,8 @@ const ProductsPage: React.FC = () => {
                     type="radio" 
                     name="category" 
                     value="hombre" 
-                    checked={filters.category === 'hombre'} 
-                    onChange={() => handleFilterChange('category', 'hombre')}
+                    checked={filters.category === 'Hombre'} 
+                    onChange={() => handleFilterChange('category', 'Hombre')}
                     className="mr-2"
                   />
                   Hombre
@@ -148,8 +148,8 @@ const ProductsPage: React.FC = () => {
                     type="radio" 
                     name="category" 
                     value="mujer" 
-                    checked={filters.category === 'mujer'} 
-                    onChange={() => handleFilterChange('category', 'mujer')}
+                    checked={filters.category === 'Mujer'} 
+                    onChange={() => handleFilterChange('category', 'Mujer')}
                     className="mr-2"
                   />
                   Mujer

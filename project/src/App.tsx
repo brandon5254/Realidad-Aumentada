@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 import ArTryOnPage from './pages/ArTryOnPage';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
+import SearchPage from './pages/SearchPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminOrders from './pages/admin/AdminOrders';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/ar/:productId" element={<ArTryOnPage />} />
           <Route path="/carrito" element={<CartPage />} />
           <Route path="/sobre-nosotros" element={<AboutPage />} />
+          <Route path="/buscar" element={<SearchPage />} />
           <Route 
             path="/perfil" 
             element={
