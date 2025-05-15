@@ -101,14 +101,16 @@ const Header: React.FC = () => {
                 Admin
               </Link>
             )}
-            <Link to="/carrito" className="hover:text-gray-400 transition-colors relative">
-              <ShoppingBag size={20} />
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
+            {!isAdmin && (
+              <Link to="/carrito" className="hover:text-gray-400 transition-colors relative">
+                <ShoppingBag size={20} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            )}
           </div>
           
           <button 
@@ -186,14 +188,16 @@ const Header: React.FC = () => {
                 <Link to={currentUser ? "/perfil" : "/login"} className="hover:text-gray-400 transition-colors">
                   <User size={20} />
                 </Link>
-                <Link to="/carrito" className="hover:text-gray-400 transition-colors relative">
-                  <ShoppingBag size={20} />
-                  {totalItems > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      {totalItems}
-                    </span>
-                  )}
-                </Link>
+                {!isAdmin && (
+                  <Link to="/carrito" className="hover:text-gray-400 transition-colors relative">
+                    <ShoppingBag size={20} />
+                    {totalItems > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        {totalItems}
+                      </span>
+                    )}
+                  </Link>
+                )}
               </div>
             </nav>
           </div>

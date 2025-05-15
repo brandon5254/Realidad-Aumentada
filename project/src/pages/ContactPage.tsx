@@ -109,7 +109,7 @@ const ContactPage: React.FC = () => {
                   <MapPin className="text-gray-400 mt-1 flex-shrink-0" />
                   <div className="ml-4">
                     <p className="font-medium">Dirección</p>
-                    <p className="text-gray-600">Av. Siempre Viva 123, Springfield</p>
+                    <p className="text-gray-600">Jardin Plaza Cali</p>
                   </div>
                 </div>
                 

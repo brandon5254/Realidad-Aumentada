@@ -104,7 +104,7 @@ const PrivacyPage: React.FC = () => {
             <ul className="list-disc list-inside text-gray-600">
               <li>Email: privacidad@omgel.com</li>
               <li>Teléfono: +57 3243833378</li>
-              <li>Dirección: Av. Siempre Viva 123, Springfield</li>
+              <li>Dirección: Jardin Plaza Cali</li>
             </ul>
           </section>
         </div>

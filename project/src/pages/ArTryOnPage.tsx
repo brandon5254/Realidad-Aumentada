@@ -187,7 +187,7 @@ const ArTryOnPage: React.FC = () => {
       
       <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 text-white">
         <p className="text-center max-w-md mx-auto">
-          Mueve tu cabeza para ver cómo te queda desde diferentes ángulos
+          Prueba cómo te queda la ropa antes de comprarla. Usa la cámara en tiempo real  para ver cómo se ve el producto en ti
         </p>
       </div>
     </div>

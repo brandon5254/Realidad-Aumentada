@@ -117,7 +117,7 @@ const ShippingPage: React.FC = () => {
               <div>
                 <h4 className="font-medium mb-2">Excepciones</h4>
                 <ul className="list-disc list-inside space-y-2 text-gray-600">
-                  <li>Ropa interior por razones de higiene</li>
+                  <li>Ropa desgastada</li>
                   <li>Productos en oferta o descuento especial</li>
                   <li>Productos personalizados</li>
                 </ul>

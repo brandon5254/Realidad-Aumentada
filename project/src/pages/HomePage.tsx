@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
       <section className="relative h-screen">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.pexels.com/photos/5384423/pexels-photo-5384423.jpeg" 
+            src="https://images.pexels.com/photos/32093139/pexels-photo-32093139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2.jpeg" 
             alt="Fashion model" 
             className="w-full h-full object-cover"
           />
@@ -98,10 +98,9 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
-              <h2 className="text-2xl md:text-3xl font-light mb-4">Prueba antes de comprar</h2>
+              <h2 className="text-2xl md:text-3xl font-light mb-4">La experiencia que brindamos con AR</h2>
               <p className="text-gray-700 mb-6">
-                Nuestra tecnología de realidad aumentada te permite probar cómo te queda la ropa antes de comprarla. 
-                Una experiencia de compra revolucionaria desde la comodidad de tu hogar.
+                Nuestra tecnología de realidad aumentada te permite probar cómo te queda la ropa antes de comprarla. Una experiencia que llegó para revolucionar el mercado.
               </p>
               <Link 
                 to="/ar/featured" 

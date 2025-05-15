@@ -10,7 +10,7 @@ const TermsPage: React.FC = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-light mb-4">1. Introducción</h2>
             <p className="text-gray-600 mb-4">
-              Al acceder y realizar un pedido con ELEGANCE, usted confirma que está de acuerdo 
+              Al acceder y realizar un pedido con OMGEL, usted confirma que está de acuerdo 
               y sujeto a los términos de servicio contenidos en los Términos y condiciones que 
               se describen a continuación.
             </p>
@@ -87,9 +87,9 @@ const TermsPage: React.FC = () => {
               Si tiene alguna pregunta sobre estos Términos, por favor contáctenos en:
             </p>
             <ul className="list-disc list-inside text-gray-600">
-              <li>Email: legal@elegance.com</li>
-              <li>Teléfono: +123 456 7890</li>
-              <li>Dirección: Av. Siempre Viva 123, Springfield</li>
+              <li>Email: legal@omgel.com</li>
+              <li>Teléfono: +57 3243833378</li>
+              <li>Dirección: Jardin Plaza Cali</li>
             </ul>
           </section>
         </div>
