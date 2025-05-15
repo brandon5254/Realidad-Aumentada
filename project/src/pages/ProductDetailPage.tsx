@@ -4,7 +4,10 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { Product } from '../types/product';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { ShoppingBag, ArrowLeft, ArrowRight } from 'lucide-react';
+import WishlistButton from '../components/wishlist/WishlistButton';
+
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +17,8 @@ const ProductDetailPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addToCart } = useCart();
+  const { userProfile } = useAuth();
+  const isInWishlist = userProfile?.wishlist?.includes(id || '') || false;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -94,7 +99,6 @@ const ProductDetailPage: React.FC = () => {
   return (
     <div className="pt-20 px-4 md:px-8 max-w-7xl mx-auto py-8 md:py-16">
       <div className="flex flex-col md:flex-row">
-        {/* Product Images */}
         <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
           <div className="relative">
             <div className="aspect-[3/4]">
@@ -144,9 +148,12 @@ const ProductDetailPage: React.FC = () => {
           )}
         </div>
         
-        {/* Product Info */}
         <div className="md:w-1/2">
-          <h1 className="text-2xl md:text-3xl font-light mb-2">{product.name}</h1>
+          <div className="flex justify-between items-start">
+            <h1 className="text-2xl md:text-3xl font-light mb-2">{product.name}</h1>
+            <WishlistButton productId={id!} isInWishlist={isInWishlist} />
+          </div>
+          
           <p className="text-2xl mb-6">${product.price.toFixed(2)}</p>
           
           <div className="mb-6">

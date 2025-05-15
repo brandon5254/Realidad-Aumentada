@@ -13,4 +13,11 @@ export interface UserProfile {
   updatedAt: string;
   photoURL?: string;
   wishlist: string[];
+  shippingAddress?: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+    country: string;
+  };
 }
