@@ -112,7 +112,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="lg:w-1/2">
               <img 
-                src="https://images.pexels.com/photos/5702281/pexels-photo-5702281.jpeg" 
+                src="https://images.pexels.com/photos/32092742/pexels-photo-32092742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2.jpeg" 
                 alt="AR shopping experience" 
                 className="w-full h-auto rounded-lg shadow-xl"
               />

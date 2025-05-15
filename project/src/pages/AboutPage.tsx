@@ -20,7 +20,7 @@ const AboutPage: React.FC = () => {
           </div>
           <div className="relative h-96">
             <img 
-              src="https://images.pexels.com/photos/3965557/pexels-photo-3965557.jpeg"
+              src="https://images.pexels.com/photos/32092884/pexels-photo-32092884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2.jpeg"
               alt="Nuestro equipo" 
               className="w-full h-full object-cover rounded-lg shadow-lg"
             />
@@ -55,13 +55,11 @@ const AboutPage: React.FC = () => {
         </div>
         
         <div className="bg-gray-50 p-8 rounded-lg">
-          <h2 className="text-2xl font-light mb-6 text-center">Tecnología AR</h2>
+          <h2 className="text-2xl font-light mb-6 text-center">La experiencia que brindamos con AR</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <p className="text-gray-600 mb-4">
-                Nuestra tecnología de realidad aumentada permite a los clientes probar 
-                virtualmente las prendas antes de comprarlas, reduciendo las devoluciones 
-                y mejorando la satisfacción del cliente.
+                Nuestra tecnología de realidad aumentada te permite probar cómo te queda la ropa antes de comprarla. Una experiencia que llegó para revolucionar el mercado.
               </p>
               <p className="text-gray-600">
                 Continuamente mejoramos nuestros algoritmos y modelos 3D para ofrecer 
@@ -70,7 +68,7 @@ const AboutPage: React.FC = () => {
             </div>
             <div className="relative h-64">
               <img 
-                src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg"
+                src="https://images.pexels.com/photos/32092916/pexels-photo-32092916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2.jpeg"
                 alt="Tecnología AR" 
                 className="w-full h-full object-cover rounded-lg shadow-lg"
               />

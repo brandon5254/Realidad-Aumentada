@@ -15,6 +15,7 @@ import ContactPage from './pages/ContactPage';
 import FAQPage from './pages/FAQPage';
 import ShippingPage from './pages/ShippingPage';
 import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
 import SearchPage from './pages/SearchPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
@@ -43,6 +44,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/envios" element={<ShippingPage />} />
           <Route path="/terminos" element={<TermsPage />} />
+          <Route path="/privacidad" element={<PrivacyPage />} />
           <Route path="/buscar" element={<SearchPage />} />
           <Route 
             path="/perfil" 
