@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
       <section className="relative h-screen">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.pexels.com/photos/32093139/pexels-photo-32093139.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2.jpeg" 
+            src="https://images.pexels.com/photos/32093444/pexels-photo-32093444.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2.jpeg" 
             alt="Fashion model" 
             className="w-full h-full object-cover"
           />
