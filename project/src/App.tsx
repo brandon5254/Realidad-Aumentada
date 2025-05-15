@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ArTryOnPage from './pages/ArTryOnPage';
+import CartPage from './pages/CartPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registro" element={<RegisterPage />} />
           <Route path="/ar/:productId" element={<ArTryOnPage />} />
+          <Route path="/carrito" element={<CartPage />} />
           <Route 
             path="/perfil" 
             element={
