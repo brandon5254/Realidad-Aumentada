@@ -8,7 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config';
 import { UserProfile, UserRole } from '../types/user';
 
@@ -50,12 +50,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const data = userDoc.data();
         const profile = data as UserProfile;
         
-        // Safely check if role exists and has a type property
         if (profile && profile.role && profile.role.type) {
           setUserProfile(profile);
           setIsAdmin(profile.role.type === 'admin');
         } else {
-          // If role is missing, set default role
           const updatedProfile: UserProfile = {
             ...profile,
             role: {
@@ -66,8 +64,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           };
           setUserProfile(updatedProfile);
           setIsAdmin(false);
-          
-          // Update the user document with the default role
           await setDoc(doc(db, 'users', user.uid), updatedProfile);
         }
       }
@@ -106,8 +102,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       role: userRole,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      photoURL: user.photoURL || undefined,
-      wishlist: []
+      wishlist: [],
+      ...(user.photoURL ? { photoURL: user.photoURL } : {})
     };
 
     await setDoc(doc(db, 'users', user.uid), profile);
@@ -131,10 +127,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Check if user profile exists
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       if (!userDoc.exists()) {
-        // Create new profile for Google users
         const profile = await createUserProfile(user, user.displayName || 'Usuario');
         setUserProfile(profile);
       } else {

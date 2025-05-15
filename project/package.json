@@ -10,14 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@snap/camera-kit": "^0.14.1",
     "@paypal/react-paypal-js": "^8.1.4",
+    "@snap/camera-kit": "^1.5.0",
+    "date-fns": "^3.3.1",
     "firebase": "^10.8.0",
+    "firebase-admin": "^13.4.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.3",
-    "date-fns": "^3.3.1"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

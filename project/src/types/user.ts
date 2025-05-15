@@ -12,5 +12,5 @@ export interface UserProfile {
   createdAt: string;
   updatedAt: string;
   photoURL?: string;
-  wishlist?: string[];
+  wishlist: string[];
 }
