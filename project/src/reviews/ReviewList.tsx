@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star } from 'lucide-react';
-import { Review } from '../../types/order';
+import { Review } from '../types/order';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
